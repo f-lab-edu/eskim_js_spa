@@ -7,8 +7,6 @@ export class App {
     private breadCrumb: BreadCrumb;
     private nodes: Nodes;
 
-    // Todo - prevNav 추가
-
     constructor() {
         this.$app = document.querySelector('.App') as HTMLDivElement;
         this.breadCrumb = new BreadCrumb({
