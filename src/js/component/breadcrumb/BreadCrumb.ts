@@ -1,5 +1,7 @@
+import {AppRoute} from "../../utils/type";
+
 export default class BreadCrumb {
-	public state: string[];
+	public state: AppRoute[];
 	public $target: HTMLElement;
 
 	constructor({
@@ -7,7 +9,7 @@ export default class BreadCrumb {
 		initialState,
 	}: {
 		$app: HTMLDivElement;
-		initialState: string[];
+		initialState: AppRoute[];
 	}) {
 		this.state = initialState;
 		this.$target = document.createElement('nav');
@@ -17,14 +19,14 @@ export default class BreadCrumb {
 		this.render();
 	}
 
-	setState(nextState: string[]) {
+	setState(nextState: AppRoute[]) {
 		this.state = nextState;
 		this.render();
 	}
 
 	render() {
 		this.$target.innerHTML = this.state
-			.map((item) => `<div>${item}</div>`)
+			.map((item) => `<div>${item.name}</div>`)
 			.join('');
 	}
 }
