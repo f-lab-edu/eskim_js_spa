@@ -13,7 +13,7 @@ export default class BreadCrumb {
 	}) {
 		this.state = initialState;
 		this.$target = document.createElement('nav');
-		this.$target.classList.add('Breadcrumb');
+		this.$target.classList.add('breadcrumb');
 		$app.appendChild(this.$target);
 
 		this.render();

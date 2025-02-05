@@ -13,8 +13,8 @@ export class ImageViewer {
             imgSrc: '',
         };
         this.$modalContainer = document.createElement('div');
-        this.$modalContainer.classList.add('Modal');
-        this.$modalContainer.classList.add('ImageViewer');
+        this.$modalContainer.classList.add('modal');
+        this.$modalContainer.classList.add('imageViewer');
         this.$modalContainer.dataset.uiType = 'modalContainer';
         this.$modalContainer.addEventListener('click', (e) => {
             if ((e.target as HTMLElement).dataset.uiType === 'modalContainer')
@@ -33,7 +33,7 @@ export class ImageViewer {
     }
 
     render() {
-        this.$modalContainer.innerHTML = `<div class="content">${this.state.isOpen ? `<img src="${this.state.imgSrc}" onerror='this.parentNode.innerHTML = "데이터 조회에 실패했습니다."'>` : ''}</div>`;
+        this.$modalContainer.innerHTML = `<div class="content">${this.state.isOpen ? `<img alt="고양이 이미지" src="${this.state.imgSrc}" onerror='this.parentNode.innerHTML = "데이터 조회에 실패했습니다."'>` : ''}</div>`;
         this.$modalContainer.style.display = this.state.isOpen ? 'block' : 'none';
     }
 }
