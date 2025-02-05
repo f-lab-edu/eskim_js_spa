@@ -91,6 +91,17 @@ body {
     }
 }
 
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    min-width: 400px;
+    min-height: 300px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .errorMessage {
     padding: 10px 20px;
     font-size: 24px;
