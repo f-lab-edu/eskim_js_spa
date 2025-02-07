@@ -19,7 +19,7 @@ export class Nodes {
 		onClickEventHandler: (e: MouseEvent) => void;
 	}) {
 		this.$target = document.createElement('div');
-		this.$target.classList.add('Nodes');
+		this.$target.classList.add('nodes');
 		this.$target.onclick = onClickEventHandler;
 		$app.appendChild(this.$target);
 
@@ -43,7 +43,7 @@ export class Nodes {
 		const $nodes = this.state
 			.nodes!.map(
 				(item) =>
-					`<div class="Node">
+					`<div class="node">
                         <img alt=${item.type === 'FILE' ? '파일' : '디렉토리'} src=${item.type === 'FILE' ? FILE_IMG_PATH : DIRECTORY_IMG_PATH} data-node-type=${item.type} data-node-id=${item.id} data-node-name=${item.name} data-file-path=${item.filePath}>
                         <div>${item.name}</div>
                      </div>`,
@@ -52,6 +52,6 @@ export class Nodes {
 
 		this.$target.innerHTML = this.state.isRoot
 			? $nodes
-			: `<div class="Node"><img alt='뒤로가기' src='img/prev.png' data-node-type='PREV'></div>${$nodes}`;
+			: `<div class="node"><img alt='뒤로가기' src='img/prev.png' data-node-type='PREV'></div>${$nodes}`;
 	}
 }

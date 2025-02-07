@@ -16,7 +16,7 @@ export class App {
 
 	constructor() {
 		this.state = this.getDefaultState();
-		this.$app = document.querySelector('.App') as HTMLDivElement;
+		this.$app = document.querySelector('.app') as HTMLDivElement;
 		this.breadCrumb = new BreadCrumb({
 			$app: this.$app,
 			initialState: this.state.route,
