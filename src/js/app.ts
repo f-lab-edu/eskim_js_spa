@@ -1,6 +1,6 @@
 import BreadCrumb from './component/breadcrumb/BreadCrumb';
 import { Nodes } from './component/nodes/Nodes';
-import { AppRoute, AppState } from './utils/type';
+import { RouteState, AppState } from './utils/type';
 import { Loader } from './component/common/Loader';
 import { getNodeData } from './service/api';
 import { ImageViewer } from './component/imageViewer/ImageViewer';
@@ -17,10 +17,7 @@ export class App {
 	constructor() {
 		this.state = this.getDefaultState();
 		this.$app = document.querySelector('.app') as HTMLDivElement;
-		this.breadCrumb = new BreadCrumb({
-			$app: this.$app,
-			initialState: this.state.route,
-		});
+		this.breadCrumb = new BreadCrumb({ $app: this.$app });
 		this.loader = new Loader({ $app: this.$app });
 		this.imageViewer = new ImageViewer({ $app: this.$app });
 		this.nodes = new Nodes({
@@ -28,11 +25,11 @@ export class App {
 			onClickEventHandler: async (e) => {
 				const nodeType = (e.target as HTMLElement).dataset.nodeType;
 				if (nodeType === 'PREV') {
-					this.updateRoute(this.state.route.slice(0, -1));
+					this.updateRoute(history.state.slice(0, -1));
 				} else if (nodeType === 'DIRECTORY') {
 					const id = (e.target as HTMLElement).dataset.nodeId!;
 					const name = (e.target as HTMLElement).dataset.nodeName!;
-					this.updateRoute([...this.state.route, { id, name }]);
+					this.updateRoute([...history.state, { id, name }]);
 				} else {
 					const imgSrc = (e.target as HTMLElement).dataset.filePath!;
 					this.setState({
@@ -51,7 +48,7 @@ export class App {
 
 	setState(nextState: AppState) {
 		this.state = nextState;
-		this.breadCrumb.setState(this.state.route);
+		this.breadCrumb.setState(history.state);
 		this.nodes.setState({
 			nodes: this.state.nodes,
 			isRoot: this.state.isRoot,
@@ -61,7 +58,8 @@ export class App {
 		this.imageViewer.setState(this.state.imageViewerState);
 	}
 
-	async updateRoute(route: AppRoute[]) {
+	async updateRoute(route: RouteState[]) {
+		history.replaceState(route, '');
 		const currentRoute = route[route.length - 1];
 		try {
 			this.setState({
@@ -69,7 +67,6 @@ export class App {
 				nodes: [],
 				isLoading: true,
 				isRoot: currentRoute.name === 'root',
-				route: route,
 				errorMessage: null,
 			});
 			const data = await getNodeData(currentRoute.id);
@@ -89,7 +86,6 @@ export class App {
 			isRoot: true,
 			nodes: [],
 			isLoading: false,
-			route: [{ id: '', name: 'root' }],
 			errorMessage: null,
 			imageViewerState: {
 				isOpen: false,
@@ -114,5 +110,6 @@ export class App {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+	history.pushState([{ id: '', name: 'root' }], '');
 	new App();
 });

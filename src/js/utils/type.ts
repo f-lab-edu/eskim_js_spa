@@ -14,12 +14,11 @@ export type AppState = {
 	isLoading: boolean;
 	isRoot: boolean;
 	nodes: DataForNode[];
-	route: AppRoute[];
 	errorMessage: string | null;
 	imageViewerState: ImageViewerState;
 };
 
-export type AppRoute = {
-	name: string;
+export type RouteState = {
 	id: string;
+	name: string;
 };
