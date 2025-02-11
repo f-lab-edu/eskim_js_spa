@@ -22,7 +22,16 @@ export class App {
 			initialState: this.state.route,
 		});
 		this.loader = new Loader({ $app: this.$app });
-		this.imageViewer = new ImageViewer({ $app: this.$app });
+		this.imageViewer = new ImageViewer({
+			$app: this.$app,
+			onCloseHandler: (e) => {
+				if ((e.target as HTMLElement).dataset.uiType === 'modalContainer')
+					this.setState({
+						...this.state,
+						imageViewerState: { isOpen: false, imgSrc: '' },
+					});
+			},
+		});
 		this.nodes = new Nodes({
 			$app: this.$app,
 			onClickEventHandler: async (e) => {
@@ -33,7 +42,7 @@ export class App {
 					const id = (e.target as HTMLElement).dataset.nodeId!;
 					const name = (e.target as HTMLElement).dataset.nodeName!;
 					this.updateRoute([...this.state.route, { id, name }]);
-				} else {
+				} else if (nodeType === 'FILE') {
 					const imgSrc = (e.target as HTMLElement).dataset.filePath!;
 					this.setState({
 						...this.state,
