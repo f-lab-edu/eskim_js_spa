@@ -1,4 +1,4 @@
-import {DIRECTORY_IMG_PATH, FILE_IMG_PATH} from '../../utils/constant';
+import { DIRECTORY_IMG_PATH, FILE_IMG_PATH } from '../../utils/constant';
 import { DataForNode } from '../../utils/type';
 
 export type NodesState = {
