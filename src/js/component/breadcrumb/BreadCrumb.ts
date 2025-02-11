@@ -1,18 +1,14 @@
-import {RouteState} from "../../utils/type";
+import { RouteState } from '../../utils/type';
 
 export default class BreadCrumb {
 	public $target: HTMLElement;
-    public state: RouteState[];
+	public state: RouteState[];
 
-	constructor({
-		$app,
-	}: {
-		$app: HTMLDivElement;
-	}) {
+	constructor({ $app }: { $app: HTMLDivElement }) {
 		this.$target = document.createElement('nav');
 		this.$target.classList.add('breadcrumb');
 		$app.appendChild(this.$target);
-        this.state = history.state;
+		this.state = history.state;
 
 		this.render();
 	}
